@@ -4,6 +4,7 @@ using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Sheets.v4;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace SOPManagement.Services.GoogleService
             });
         }
 
-        public async Task AppendToGoogleSheet(string spreadsheetId, string range, List<List<string>> lineOrders)
+        public async Task AppendToGoogleSheet(string spreadsheetId, string range, List<List<object>> lineOrders)
         {
             try
             {
@@ -63,6 +64,5 @@ namespace SOPManagement.Services.GoogleService
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
-
     }
 }

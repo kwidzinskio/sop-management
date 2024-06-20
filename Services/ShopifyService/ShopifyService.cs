@@ -1,6 +1,6 @@
 ﻿using ShopifySharp;
 using ShopifySharp.Filters;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,9 +17,9 @@ namespace SOPManagement.Services.ShopifyService
             _orderService = new OrderService(shopUrl, accessToken);
         }
 
-        public async Task<List<List<string>>> FetchOrdersAsync(DateTime startDatetime, DateTime endDatetime)
+        public async Task<List<List<object>>> FetchOrdersAsync(DateTime startDatetime, DateTime endDatetime)
         {
-            List<List<string>> lineOrders = new List<List<string>>();
+            List<List<object>> lineOrders = new List<List<object>>();
 
             _filter = new OrderListFilter
             {
@@ -56,21 +56,27 @@ namespace SOPManagement.Services.ShopifyService
             return lineOrders;
         }
 
-        private void ProcessOrder(Order order, List<List<string>> lineOrders)
+        private void ProcessOrder(Order order, List<List<object>> lineOrders)
         {
+            var numberOfLineItems = order.LineItems.Count();
+            bool isFirstIteration = true;
+
             foreach (var lineItem in order.LineItems)
             {
-                List<string> lineItems = new List<string>
+                List<object> lineItems = new List<object>
                 {
                     order.Name,
                     order.CreatedAt?.DateTime.ToString(),
                     lineItem.SKU,
                     lineItem.Name,
                     ItemMapping.MapString(lineItem.SKU),
+                    isFirstIteration ? numberOfLineItems : "-",
                     order.ShippingAddress.CountryCode,
                 };
 
                 lineOrders.Add(lineItems);
+
+                isFirstIteration = false; 
             }
 
             Console.WriteLine($"{order.Name} {order.CreatedAt}");
