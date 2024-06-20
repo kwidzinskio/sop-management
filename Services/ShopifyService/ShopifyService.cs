@@ -72,6 +72,7 @@ namespace SOPManagement.Services.ShopifyService
                     ItemMapping.MapString(lineItem.SKU),
                     isFirstIteration ? numberOfLineItems : "-",
                     order.ShippingAddress.CountryCode,
+                    Warehouse.MapString(order.ShippingAddress.CountryCode)
                 };
 
                 lineOrders.Add(lineItems);
