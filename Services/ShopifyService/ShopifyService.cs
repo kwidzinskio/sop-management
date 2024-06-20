@@ -17,9 +17,9 @@ namespace SOPManagement.Services.ShopifyService
             _orderService = new OrderService(shopUrl, accessToken);
         }
 
-        public async Task<List<string>> FetchOrdersAsync(DateTime startDatetime, DateTime endDatetime)
+        public async Task<List<List<string>>> FetchOrdersAsync(DateTime startDatetime, DateTime endDatetime)
         {
-            List<string> lineOrders = new List<string>();
+            List<List<string>> lineOrders = new List<List<string>>();
 
             _filter = new OrderListFilter
             {
@@ -56,20 +56,20 @@ namespace SOPManagement.Services.ShopifyService
             return lineOrders;
         }
 
-        private void ProcessOrder(Order order, List<string> lineOrders)
+        private void ProcessOrder(Order order, List<List<string>> lineOrders)
         {
             foreach (var lineItem in order.LineItems)
             {
                 List<string> lineItems = new List<string>
                 {
-                    order.CreatedAt.ToString(),
                     order.Name,
+                    order.CreatedAt?.DateTime.ToString(),
                     lineItem.SKU.ToString(),
-                    lineItem.Name.ToString()
+                    lineItem.Name.ToString(),
+                    order.ShippingAddress.CountryCode,
                 };
 
-                string commaSeparatedLine = string.Join(",", lineItems);
-                lineOrders.Add(commaSeparatedLine);
+                lineOrders.Add(lineItems);
             }
 
             Console.WriteLine($"{order.Name} {order.CreatedAt}");

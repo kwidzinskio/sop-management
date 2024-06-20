@@ -31,14 +31,16 @@ namespace SOPManagement.Services.GoogleService
             });
         }
 
-        public async Task AppendToGoogleSheet(string spreadsheetId, string range, List<string> lineOrders)
+        public async Task AppendToGoogleSheet(string spreadsheetId, string range, List<List<string>> lineOrders)
         {
             try
             {
                 var values = new List<IList<object>>();
+
                 foreach (var item in lineOrders)
                 {
-                    values.Add(new List<object> { item });
+                    var row = item.Select(val => (object)val).ToList();
+                    values.Add(row);
                 }
 
                 var body = new ValueRange
@@ -61,5 +63,6 @@ namespace SOPManagement.Services.GoogleService
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
+
     }
 }
