@@ -64,8 +64,9 @@ namespace SOPManagement.Services.ShopifyService
                 {
                     order.Name,
                     order.CreatedAt?.DateTime.ToString(),
-                    lineItem.SKU.ToString(),
-                    lineItem.Name.ToString(),
+                    lineItem.SKU,
+                    lineItem.Name,
+                    ItemMapping.MapString(lineItem.SKU),
                     order.ShippingAddress.CountryCode,
                 };
 

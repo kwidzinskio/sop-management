@@ -34,7 +34,7 @@ namespace SOPManagement
             var googleService = new GoogleService(credentialPath);
             Console.WriteLine(  );
             DateTime startDatetime = new DateTime(2024, 06, 30);
-            DateTime endDatetime = new DateTime(2024, 01, 01);
+            DateTime endDatetime = new DateTime(2024, 06, 18);
 
             /*            DateTime startDatetime = DateTime.Now;
                         DateTime endDatetime = DateTime.Now;
