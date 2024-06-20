@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SOPManagement.Services.GoogleService;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Text;
+using SOPManagement.Services.QuivoService;
 
 namespace SOPManagement
 {
@@ -36,6 +40,7 @@ namespace SOPManagement
             DateTime startDatetime = new DateTime(2024, 06, 29);
             DateTime endDatetime = new DateTime(2024, 06, 01);
 
+            #region
             /*            DateTime startDatetime = DateTime.Now;
                         DateTime endDatetime = DateTime.Now;
 
@@ -54,8 +59,30 @@ namespace SOPManagement
                             Console.WriteLine("The input was not a valid date");
                         } */
 
-                        var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-                        await googleService.AppendToGoogleSheet(spreadsheetId, range, lineOrders);
+            /* var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
+             await googleService.AppendToGoogleSheet(spreadsheetId, range, lineOrders);*/
+            #endregion
+
+            string token = await QuivoService.LoginAndGetTokenAsync();
+            if (!string.IsNullOrEmpty(token))
+            {
+                await QuivoService.GetProductStockAsync(token);
+            }
+        }
+
+
+
+        public class LoginResponse
+        {
+            public string Token { get; set; }
+        }
+
+        public class Magazine
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Location { get; set; }
+            // Dodaj inne właściwości zgodnie z odpowiedzią API
         }
     }
 }
