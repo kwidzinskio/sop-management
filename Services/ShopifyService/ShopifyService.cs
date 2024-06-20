@@ -58,30 +58,42 @@ namespace SOPManagement.Services.ShopifyService
 
         private void ProcessOrder(Order order, List<List<object>> lineOrders)
         {
-            var numberOfLineItems = order.LineItems.Count();
-            bool isFirstIteration = true;
+            List<object> lineItems = new List<object>();
+
+            List<object> lineSKUs = new List<object>();
+            List<object> lineNames = new List<object>();
+            List<object> lineInternalNames = new List<object>();
+            int productsInOrder = 0;
 
             foreach (var lineItem in order.LineItems)
             {
-                List<object> lineItems = new List<object>
+                for (int i = 0; i < lineItem.Quantity; i++)
                 {
-                    order.Name,
-                    order.CreatedAt?.DateTime.ToString(),
-                    lineItem.SKU,
-                    lineItem.Name,
-                    ItemMapping.MapString(lineItem.SKU),
-                    isFirstIteration ? numberOfLineItems : "-",
-                    order.ShippingAddress.CountryCode,
-                    Warehouse.MapString(order.ShippingAddress.CountryCode)
-                };
-
-                lineOrders.Add(lineItems);
-
-                isFirstIteration = false; 
+                    lineSKUs.Add(lineItem.SKU);
+                    lineNames.Add(lineItem.Name);
+                    lineInternalNames.Add(ItemMapping.MapString(lineItem.SKU));
+                    productsInOrder++;
+                }
             }
+
+            lineItems.AddRange(new object[]
+            {
+                order.Name,
+                order.CreatedAt?.DateTime.ToString(),
+                string.Join(", ", lineSKUs),
+                string.Join(", ", lineNames),
+                string.Join(", ", lineInternalNames),
+                productsInOrder,
+                order.ShippingAddress.CountryCode,
+                Warehouse.MapString(order.ShippingAddress.CountryCode)
+            });
+
+
+            lineOrders.Add(lineItems);
 
             Console.WriteLine($"{order.Name} {order.CreatedAt}");
         }
+
 
         private DateTime MoveToNextOrder(DateTime startDatetime, Order order, OrderListFilter filter)
         {

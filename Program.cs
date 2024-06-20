@@ -33,8 +33,8 @@ namespace SOPManagement
             var shopifyFilter = new OrderListFilter();
             var googleService = new GoogleService(credentialPath);
             Console.WriteLine(  );
-            DateTime startDatetime = new DateTime(2024, 04, 16);
-            DateTime endDatetime = new DateTime(2024, 04, 11);
+            DateTime startDatetime = new DateTime(2024, 06, 29);
+            DateTime endDatetime = new DateTime(2024, 06, 01);
 
             /*            DateTime startDatetime = DateTime.Now;
                         DateTime endDatetime = DateTime.Now;
