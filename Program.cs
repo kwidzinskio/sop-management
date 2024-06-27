@@ -37,7 +37,7 @@ namespace SOPManagement
             var shopifyFilter = new OrderListFilter();
             var googleService = new GoogleService(credentialPath);
             Console.WriteLine(  );
-            DateTime startDatetime = new DateTime(2024, 06, 29);
+            DateTime startDatetime = new DateTime(2024, 06, 28);
             DateTime endDatetime = new DateTime(2024, 06, 01);
 
             #region

@@ -17,6 +17,7 @@ namespace SOPManagement.Services.ShopifyService
             { "IE", "DE" },
             { "NL", "DE" },
             { "BE", "DE" },
+            { "PL", "DE" },
             { "CA", "US" },
             { "DK", "DE" },
             { "CZ", "DE" },
@@ -28,9 +29,10 @@ namespace SOPManagement.Services.ShopifyService
             { "LV", "DE" },
             { "SK", "DE" },
             { "MT", "DE" },
+            { "LU", "DE" },
             { "HR", "DE" },
             { "ZA", "CH" },
-            { "FI", "DE" }
+            { "FI", "DE" },
         };
 
         public static string MapString(string input)
