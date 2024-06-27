@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SOPManagement.Services.QuivoService
+namespace SOPManagement.Services.QuivoService.Helpers
 {
     public static class QuivoItemMapping
     {
@@ -24,7 +24,7 @@ namespace SOPManagement.Services.QuivoService
             { "OXME-0301-0301 M", "Shirt M" },
             { "OXME-0301-0301 S", "Shirt S" },
             { "OXUN-1001-1107 m: 2XL/3XL, f: 3XL/4XL", "Strap IV" }, // Extra Strap
-            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", "Strap IV" }, 
+            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", "Strap IV" },
             { "OXUN-1001-1107 m: L/XL, f: XL/2XL", "Strap III" },
             { "OXUN-1001-1107 m: S/M, f: M/L", "Strap II" },
             { "OXUN-1001-1107 m: XS, f: XS/S", "Strap I" },

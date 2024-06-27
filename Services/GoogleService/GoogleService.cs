@@ -65,7 +65,7 @@ namespace SOPManagement.Services.GoogleService
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
-        public async Task AppendQuivo(string spreadsheetId, string range, Dictionary<string, List<ProductQty>> productsByWarehouse)
+        public async Task AppendQuivo(string spreadsheetId, string range, Dictionary<string, List<GoogleProductQty>> productsByWarehouse)
         {
             try
             {

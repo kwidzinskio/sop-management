@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using SOPManagement.Models;
+using SOPManagement.Services.QuivoService.Helpers;
 using SOPManagement.Services.ShopifyService;
 using System;
 using System.Collections.Generic;
@@ -66,13 +67,13 @@ namespace SOPManagement.Services.QuivoService
             return token;
         }
 
-        public static async Task<Dictionary<string, List<ProductQty>>> GetProductQtyAsync(string token)
+        public static async Task<Dictionary<string, List<GoogleProductQty>>> GetProductQtyAsync(string token)
         {
-            var result = new Dictionary<string, List<ProductQty>>();
+            var result = new Dictionary<string, List<GoogleProductQty>>();
 
             foreach (var warehouseId in WarehouseIds.Values)
             {
-                var productList = new List<ProductQty>();
+                var productList = new List<GoogleProductQty>();
                 Console.WriteLine($"\n{warehouseId.Value}");
                 for (int i = 0; i < 5; i++)
                 {
@@ -92,7 +93,7 @@ namespace SOPManagement.Services.QuivoService
                             string mappedItem = QuivoItemMapping.MapItem(product.Sku);
                             if (mappedItem != "None")
                             {
-                                productList.Add(new ProductQty
+                                productList.Add(new GoogleProductQty
                                 {
                                     InternalName = mappedItem,
                                     Quantity = product.Quantity

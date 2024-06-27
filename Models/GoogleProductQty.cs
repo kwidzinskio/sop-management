@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOPManagement.Models
 {
-    internal class ProductQty
+    internal class GoogleProductQty
     {
         public string InternalName { get; set; }
         public int Quantity { get; set; }

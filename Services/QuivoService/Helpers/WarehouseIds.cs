@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOPManagement.Services.QuivoService
+namespace SOPManagement.Services.QuivoService.Helpers
 {
     public static class WarehouseIds
     {
