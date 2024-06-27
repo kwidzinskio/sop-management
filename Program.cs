@@ -59,15 +59,15 @@ namespace SOPManagement
                             Console.WriteLine("The input was not a valid date");
                         } */
 
-            /* var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-             await googleService.AppendToGoogleSheet(spreadsheetId, range, lineOrders);*/
+            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
+             await googleService.AppendToGoogleSheet(spreadsheetId, range, lineOrders);
             #endregion
 
-            string token = await QuivoService.LoginAndGetTokenAsync();
+/*            string token = await QuivoService.LoginAndGetTokenAsync();
             if (!string.IsNullOrEmpty(token))
             {
                 await QuivoService.GetProductStockAsync(token);
-            }
+            }*/
         }
 
 
