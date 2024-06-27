@@ -18,28 +18,21 @@ namespace SOPManagement
     {
         static async Task Main(string[] args)
         {
-            string basePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string credentialPath = Path.Combine(basePath, ".NET", "SOPManagement", "google_api_key.json");
-            string configPath = Path.Combine(basePath, ".NET", "SOPManagement", "config.json");
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(configPath, optional: true, reloadOnChange: true);
-
-            IConfiguration configuration = builder.Build();
+            var (configuration, credentialPath) = ConfigureSettings();
 
             string spreadsheetId = configuration["spreadsheetId"];
             string rangeShopify = configuration["rangeShopify"];
             string rangeQuivo = configuration["rangeQuivo"];
             string accessToken = configuration["accessToken"];
-            string shopUrl = configuration["shopUrl"];
+            string shopifyUrl = configuration["shopifyUrl"];
 
-            var shopifyService = new ShopifyService(shopUrl, accessToken);
-            var shopifyFilter = new OrderListFilter();
+            var shopifyService = new ShopifyService(shopifyUrl, accessToken);
             var googleService = new GoogleService(credentialPath);
 
+            #region
             DateTime startDatetime = new DateTime(2024, 06, 28);
             DateTime endDatetime = new DateTime(2024, 06, 01);
+            #endregion
 
             #region
             /*            DateTime startDatetime = DateTime.Now;
@@ -58,18 +51,32 @@ namespace SOPManagement
                         catch (FormatException)
                         {
                             Console.WriteLine("The input was not a valid date");
-                        } */
-/*
-            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-             await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);*/
+                        }*/
             #endregion
 
+            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
+            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);
+            
             string token = await QuivoService.LoginAndGetTokenAsync();
             if (!string.IsNullOrEmpty(token))
             {
                 var productQtys = await QuivoService.GetProductQtyAsync(token);
                 await googleService.AppendQuivo(spreadsheetId, rangeQuivo, productQtys);
             }
+        }
+
+        static (IConfiguration, string) ConfigureSettings()
+        {
+            string basePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string configPath = Path.Combine(basePath, ".NET", "SOPManagement", "config.json");
+            string credentialPath = Path.Combine(basePath, ".NET", "SOPManagement", "google_api_key.json");
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(configPath, optional: true, reloadOnChange: true);
+
+            IConfiguration configuration = builder.Build();
+            return (configuration, credentialPath);
         }
     }
 }
