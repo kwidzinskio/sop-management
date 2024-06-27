@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SOPManagement.Services.ShopifyService
+namespace SOPManagement.Services.ShopifyService.Helpers
 {
     internal static class FulfillmentCenterMapping
     {
@@ -35,7 +35,7 @@ namespace SOPManagement.Services.ShopifyService
             { "FI", "DE" },
         };
 
-        public static string MapString(string input)
+        public static string MapFulfillmentCenter(string input)
         {
             if (mappings.TryGetValue(input, out string result))
             {

@@ -30,8 +30,8 @@ namespace SOPManagement
             var googleService = new GoogleService(credentialPath);
 
             #region
-            DateTime startDatetime = new DateTime(2024, 06, 28);
-            DateTime endDatetime = new DateTime(2024, 06, 01);
+            DateTime startDatetime = new DateTime(2024, 06, 27, 09, 00, 00);
+            DateTime endDatetime = new DateTime(2024, 06, 26, 08, 00, 00);
             #endregion
 
             #region

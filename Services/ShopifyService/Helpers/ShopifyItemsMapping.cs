@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SOPManagement.Services.ShopifyService
+namespace SOPManagement.Services.ShopifyService.Helpers
 {
-    internal static class ShopifyItemMapping
+    internal static class ShopifyItemsMapping
     {
         private static readonly Dictionary<string, List<string>> mappings = new Dictionary<string, List<string>>
         {
@@ -34,14 +34,13 @@ namespace SOPManagement.Services.ShopifyService
             { "OXME-0301-0301 M", new List<string> { "Shirt M" } },
             { "OXME-0301-0301 S", new List<string> { "Shirt S" } },
             { "OXUN-1001-1107 m: 2XL/3XL, f: 3XL/4XL", new List<string> { "Strap V" } }, // Extra Strap - Female
-            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", new List<string> { "Strap IV" } }, 
-            { "OXUN-1001-1107 m: L/XL, f: XL/2XL", new List<string> { "Strap III" } }, 
+            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", new List<string> { "Strap IV" } },
+            { "OXUN-1001-1107 m: L/XL, f: XL/2XL", new List<string> { "Strap III" } },
             { "OXUN-1001-1107 m: S/M, f: M/L", new List<string> { "Strap II" } },
             { "OXUN-1001-1107 m: XS, f: XS/S", new List<string> { "Strap I" } },
             { "Extra Strap - Male / 2XL/3XL", new List<string> { "Strap IV" } }, // Extra Strap - Male
             { "Extra Strap - Male / L/XL", new List<string> { "Strap III" } },
             { "Extra Strap - Male / S/M", new List<string> { "Strap II" } },
-            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", new List<string> { "Strap V" } },
             { "OXWO-ND - K - XL/V", new List<string> { "Bra XL", "Band V", "Sensor", "Phone stand", "Magnetbox", "Start guide" } }, // Night & Day Bundle - Bra
             { "OXWO-ND - K - XL/IV", new List<string> { "Bra XL", "Band IV", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },
             { "OXWO-ND - K (Strap) - XL/III", new List<string> { "Bra XL", "Strap III", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },

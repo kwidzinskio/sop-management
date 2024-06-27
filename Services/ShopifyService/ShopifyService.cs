@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SOPManagement.Services.ShopifyService.Helpers;
 
 namespace SOPManagement.Services.ShopifyService
 {
@@ -58,25 +59,12 @@ namespace SOPManagement.Services.ShopifyService
 
         private void ProcessOrder(Order order, List<List<object>> lineOrders)
         {
-            List<object> lineItems = new List<object>();
+            var lineSKUs = order.LineItems.SelectMany(li => Enumerable.Repeat(li.SKU, li.Quantity ?? 0)).ToList();
+            var lineNames = order.LineItems.SelectMany(li => Enumerable.Repeat(li.Name, li.Quantity ?? 0)).ToList();
+            var lineInternalNames = order.LineItems.SelectMany(li => Enumerable.Repeat(ShopifyItemsMapping.MapItems(li.SKU), li.Quantity ?? 0)).ToList();
+            int productsInOrder = order.LineItems.Sum(li => li.Quantity ?? 0);
 
-            List<object> lineSKUs = new List<object>();
-            List<object> lineNames = new List<object>();
-            List<object> lineInternalNames = new List<object>();
-            int productsInOrder = 0;
-
-            foreach (var lineItem in order.LineItems)
-            {
-                for (int i = 0; i < lineItem.Quantity; i++)
-                {
-                    lineSKUs.Add(lineItem.SKU);
-                    lineNames.Add(lineItem.Name);
-                    lineInternalNames.Add(ShopifyItemMapping.MapItems(lineItem.SKU));
-                    productsInOrder++;
-                }
-            }
-
-            lineItems.AddRange(new object[]
+            var lineOrder = new List<object>
             {
                 order.Name,
                 order.CreatedAt?.DateTime.ToString(),
@@ -85,15 +73,13 @@ namespace SOPManagement.Services.ShopifyService
                 string.Join(", ", lineInternalNames),
                 productsInOrder,
                 order.ShippingAddress.CountryCode,
-                FulfillmentCenterMapping.MapString(order.ShippingAddress.CountryCode)
-            });
+                FulfillmentCenterMapping.MapFulfillmentCenter(order.ShippingAddress.CountryCode)
+            };
 
-
-            lineOrders.Add(lineItems);
+            lineOrders.Add(lineOrder);
 
             Console.WriteLine($"{order.Name} {order.CreatedAt}");
         }
-
 
         private DateTime MoveToNextOrder(DateTime startDatetime, Order order, OrderListFilter filter)
         {
