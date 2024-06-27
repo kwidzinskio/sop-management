@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SOPManagement.Models
 {
-    public class LoginResponse
+    internal class ProductQty
     {
-        public string Token { get; set; }
+        public string InternalName { get; set; }
+        public int Quantity { get; set; }
     }
 }

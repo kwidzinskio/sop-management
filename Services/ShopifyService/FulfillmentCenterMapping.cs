@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SOPManagement.Services.ShopifyService
 {
-    internal static class Warehouse
+    internal static class FulfillmentCenterMapping
     {
         private static readonly Dictionary<string, string> mappings = new Dictionary<string, string>
         {

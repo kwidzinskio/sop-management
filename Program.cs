@@ -29,14 +29,15 @@ namespace SOPManagement
             IConfiguration configuration = builder.Build();
 
             string spreadsheetId = configuration["spreadsheetId"];
-            string range = configuration["range"];
+            string rangeShopify = configuration["rangeShopify"];
+            string rangeQuivo = configuration["rangeQuivo"];
             string accessToken = configuration["accessToken"];
             string shopUrl = configuration["shopUrl"];
 
             var shopifyService = new ShopifyService(shopUrl, accessToken);
             var shopifyFilter = new OrderListFilter();
             var googleService = new GoogleService(credentialPath);
-            Console.WriteLine(  );
+
             DateTime startDatetime = new DateTime(2024, 06, 28);
             DateTime endDatetime = new DateTime(2024, 06, 01);
 
@@ -58,31 +59,17 @@ namespace SOPManagement
                         {
                             Console.WriteLine("The input was not a valid date");
                         } */
-
+/*
             var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-             await googleService.AppendToGoogleSheet(spreadsheetId, range, lineOrders);
+             await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);*/
             #endregion
 
-/*            string token = await QuivoService.LoginAndGetTokenAsync();
+            string token = await QuivoService.LoginAndGetTokenAsync();
             if (!string.IsNullOrEmpty(token))
             {
-                await QuivoService.GetProductStockAsync(token);
-            }*/
-        }
-
-
-
-        public class LoginResponse
-        {
-            public string Token { get; set; }
-        }
-
-        public class Magazine
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Location { get; set; }
-            // Dodaj inne właściwości zgodnie z odpowiedzią API
+                var productQtys = await QuivoService.GetProductQtyAsync(token);
+                await googleService.AppendQuivo(spreadsheetId, rangeQuivo, productQtys);
+            }
         }
     }
 }

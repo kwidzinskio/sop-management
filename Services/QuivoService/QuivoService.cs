@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using SOPManagement.Models;
+using SOPManagement.Services.ShopifyService;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -53,7 +54,7 @@ namespace SOPManagement.Services.QuivoService
                 HttpResponseMessage response = await client.PostAsync(loginUrl, content);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
-                var loginResponse = JsonConvert.DeserializeObject<LoginResponse>(responseBody);
+                var loginResponse = JsonConvert.DeserializeObject<QuivoLoginResponse>(responseBody);
                 token = loginResponse.Token;
             }
             catch (HttpRequestException e)
@@ -65,35 +66,53 @@ namespace SOPManagement.Services.QuivoService
             return token;
         }
 
-        public static async Task GetProductStockAsync(string token)
+        public static async Task<Dictionary<string, List<ProductQty>>> GetProductQtyAsync(string token)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                string warehouseId = "4"; // HARDCODED
-                var apiUrl = $"{baseUrl}/items/{warehouseId}/1882?page={i}";
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var result = new Dictionary<string, List<ProductQty>>();
 
-                try
+            foreach (var warehouseId in WarehouseIds.Values)
+            {
+                var productList = new List<ProductQty>();
+                Console.WriteLine($"\n{warehouseId.Value}");
+                for (int i = 0; i < 5; i++)
                 {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    var quivoProducts = JsonConvert.DeserializeObject<List<QuivoProduct>>(responseBody);
-                    Console.WriteLine($"\n--------- {i} ---------");
-                    foreach (var product in quivoProducts)
+                    var apiUrl = $"{baseUrl}/items/{warehouseId.Key}/1882?page={i}";
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    try
                     {
-                        Console.WriteLine($"{product.Sku}: {product.Quantity} {product.Inventory} {product.Inbound} {product.Reserved}");
+                        HttpResponseMessage response = await client.GetAsync(apiUrl);
+                        response.EnsureSuccessStatusCode();
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        var quivoProducts = JsonConvert.DeserializeObject<List<QuivoProductQty>>(responseBody);
+                        foreach (var product in quivoProducts)
+                        {
+                            string mappedItem = QuivoItemMapping.MapItem(product.Sku);
+                            if (mappedItem != "None")
+                            {
+                                productList.Add(new ProductQty
+                                {
+                                    InternalName = mappedItem,
+                                    Quantity = product.Quantity
+                                });
+                                Console.WriteLine($"{mappedItem}: {product.Quantity}");
+                            }
+                        }
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        Console.WriteLine("\nException Caught!");
+                        Console.WriteLine("Message :{0} ", e.Message);
                     }
                 }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine("\nException Caught!");
-                    Console.WriteLine("Message :{0} ", e.Message);
-                }
+                result.Add(warehouseId.Value, productList);
             }
+
+            return result;
         }
+
     }
 
 }

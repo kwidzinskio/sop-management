@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SOPManagement.Services.ShopifyService
 {
-    internal static class ItemMapping
+    internal static class ShopifyItemMapping
     {
         private static readonly Dictionary<string, List<string>> mappings = new Dictionary<string, List<string>>
         {
@@ -33,7 +33,8 @@ namespace SOPManagement.Services.ShopifyService
             { "OXME-0301-0301 L", new List<string> { "Shirt L" } },
             { "OXME-0301-0301 M", new List<string> { "Shirt M" } },
             { "OXME-0301-0301 S", new List<string> { "Shirt S" } },
-            { "OXUN-1001-1107 m: 2XL/3XL, f: 3XL/4XL", new List<string> { "Strap IV" } }, // Extra Strap - Female
+            { "OXUN-1001-1107 m: 2XL/3XL, f: 3XL/4XL", new List<string> { "Strap V" } }, // Extra Strap - Female
+            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", new List<string> { "Strap IV" } }, 
             { "OXUN-1001-1107 m: L/XL, f: XL/2XL", new List<string> { "Strap III" } }, 
             { "OXUN-1001-1107 m: S/M, f: M/L", new List<string> { "Strap II" } },
             { "OXUN-1001-1107 m: XS, f: XS/S", new List<string> { "Strap I" } },
@@ -102,7 +103,7 @@ namespace SOPManagement.Services.ShopifyService
             { "OXAC-0901-1006", new List<string> { "Safety info"} },
         };
 
-        public static string MapString(string input)
+        public static string MapItems(string input)
         {
             if (mappings.TryGetValue(input, out List<string> result))
             {

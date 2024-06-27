@@ -71,7 +71,7 @@ namespace SOPManagement.Services.ShopifyService
                 {
                     lineSKUs.Add(lineItem.SKU);
                     lineNames.Add(lineItem.Name);
-                    lineInternalNames.Add(ItemMapping.MapString(lineItem.SKU));
+                    lineInternalNames.Add(ShopifyItemMapping.MapItems(lineItem.SKU));
                     productsInOrder++;
                 }
             }
@@ -85,7 +85,7 @@ namespace SOPManagement.Services.ShopifyService
                 string.Join(", ", lineInternalNames),
                 productsInOrder,
                 order.ShippingAddress.CountryCode,
-                Warehouse.MapString(order.ShippingAddress.CountryCode)
+                FulfillmentCenterMapping.MapString(order.ShippingAddress.CountryCode)
             });
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SOPManagement.Models
 {
-    internal class QuivoProduct
+    internal class QuivoProductQty
     {
         [JsonProperty("sku")]
         public string Sku { get; set; }
