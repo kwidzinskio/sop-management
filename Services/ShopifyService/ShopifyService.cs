@@ -12,10 +12,14 @@ namespace SOPManagement.Services.ShopifyService
     {
         private readonly OrderService _orderService;
         private OrderListFilter _filter;
+        private string _accessToken;
+        private string _shopifyUrl;
 
-        public ShopifyService(string shopUrl, string accessToken)
+        public ShopifyService(IConfiguration configuration)
         {
-            _orderService = new OrderService(shopUrl, accessToken);
+            _accessToken = configuration["shopifyAccessToken"];
+            _shopifyUrl = configuration["shopifyUrl"];
+            _orderService = new OrderService(_shopifyUrl, _accessToken);
         }
 
         public async Task<List<List<object>>> FetchOrdersAsync(DateTime startDatetime, DateTime endDatetime)

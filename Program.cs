@@ -26,7 +26,7 @@ namespace SOPManagement
             string accessToken = configuration["accessToken"];
             string shopifyUrl = configuration["shopifyUrl"];
 
-            var shopifyService = new ShopifyService(shopifyUrl, accessToken);
+            var shopifyService = new ShopifyService(configuration);
             var googleService = new GoogleService(credentialPath);
 
             #region
