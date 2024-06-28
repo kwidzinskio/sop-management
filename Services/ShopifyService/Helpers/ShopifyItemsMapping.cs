@@ -17,30 +17,30 @@ namespace SOPManagement.Services.ShopifyService.Helpers
             { "OXWO-0201-0101 M - K", new List<string> { "Bra III", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },
             { "OXWO-0201-0101 S - K", new List<string> { "Bra II", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },
             { "OXWO-0201-0101 XS - K", new List<string> { "Bra I", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },
-            { "OXUN-0101-0201 V", new List<string> { "Band V" } }, // Extra band - Female / Male
-            { "OXUN-0101-0201 IV", new List<string> { "Band IV" } },
-            { "OXUN-0101-0201 III", new List<string> { "Band III" } },
-            { "OXUN-0101-0201 II", new List<string> { "Band II" } },
-            { "OXUN-0101-0201 I", new List<string> { "Band I" } },
+            { "OXUN-0101-0201 V", new List<string> { "Band V", "Zipbag" } }, // Extra band - Female / Male
+            { "OXUN-0101-0201 IV", new List<string> { "Band IV", "Zipbag" } },
+            { "OXUN-0101-0201 III", new List<string> { "Band III", "Zipbag" } },
+            { "OXUN-0101-0201 II", new List<string> { "Band II", "Zipbag" } },
+            { "OXUN-0101-0201 I", new List<string> { "Band I", "Zipbag" } },
             { "OXSE-0701-0707", new List<string> { "Sensor" } }, // Extra Sensor Unit
-            { "OXWO-0201-0101 XL", new List<string> { "Bra XL" } }, // Extra Shirt Or Bra - Bra
-            { "OXWO-0201-0101 L", new List<string> { "Bra L" } },
-            { "OXWO-0201-0101 M", new List<string> { "Bra M" } },
-            { "OXWO-0201-0101 S", new List<string> { "Bra S" } },
-            { "OXWO-0201-0101 XS", new List<string> { "Bra XS" } },
-            { "OXME-0301-0301 XXL", new List<string> { "Shirt XXL" } }, // Extra Shirt Or Bra - Shirt
-            { "OXME-0301-0301 XL", new List<string> { "Shirt XL" } },
-            { "OXME-0301-0301 L", new List<string> { "Shirt L" } },
-            { "OXME-0301-0301 M", new List<string> { "Shirt M" } },
-            { "OXME-0301-0301 S", new List<string> { "Shirt S" } },
-            { "OXUN-1001-1107 m: 2XL/3XL, f: 3XL/4XL", new List<string> { "Strap V" } }, // Extra Strap - Female
-            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", new List<string> { "Strap IV" } },
-            { "OXUN-1001-1107 m: L/XL, f: XL/2XL", new List<string> { "Strap III" } },
-            { "OXUN-1001-1107 m: S/M, f: M/L", new List<string> { "Strap II" } },
-            { "OXUN-1001-1107 m: XS, f: XS/S", new List<string> { "Strap I" } },
-            { "Extra Strap - Male / 2XL/3XL", new List<string> { "Strap IV" } }, // Extra Strap - Male
-            { "Extra Strap - Male / L/XL", new List<string> { "Strap III" } },
-            { "Extra Strap - Male / S/M", new List<string> { "Strap II" } },
+            { "OXWO-0201-0101 XL", new List<string> { "Bra XL", "Zipbag" } }, // Extra Shirt Or Bra - Bra
+            { "OXWO-0201-0101 L", new List<string> { "Bra L", "Zipbag" } },
+            { "OXWO-0201-0101 M", new List<string> { "Bra M", "Zipbag" } },
+            { "OXWO-0201-0101 S", new List<string> { "Bra S", "Zipbag" } },
+            { "OXWO-0201-0101 XS", new List<string> { "Bra XS", "Zipbag" } },
+            { "OXME-0301-0301 XXL", new List<string> { "Shirt XXL", "Zipbag" } }, // Extra Shirt Or Bra - Shirt
+            { "OXME-0301-0301 XL", new List<string> { "Shirt XL", "Zipbag" } },
+            { "OXME-0301-0301 L", new List<string> { "Shirt L", "Zipbag" } },
+            { "OXME-0301-0301 M", new List<string> { "Shirt M", "Zipbag" } },
+            { "OXME-0301-0301 S", new List<string> { "Shirt S", "Zipbag" } },
+            { "OXUN-1001-1107 m: 2XL/3XL, f: 3XL/4XL", new List<string> { "Strap V", "Zipbag" } }, // Extra Strap - Female
+            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", new List<string> { "Strap IV", "Zipbox" } },
+            { "OXUN-1001-1107 m: L/XL, f: XL/2XL", new List<string> { "Strap III", "Zipbag" } },
+            { "OXUN-1001-1107 m: S/M, f: M/L", new List<string> { "Strap II", "Zipbag" } },
+            { "OXUN-1001-1107 m: XS, f: XS/S", new List<string> { "Strap I", "Zipbag" } },
+            { "Extra Strap - Male / 2XL/3XL", new List<string> { "Strap IV", "Zipbag" } }, // Extra Strap - Male
+            { "Extra Strap - Male / L/XL", new List<string> { "Strap III", "Zipbag" } },
+            { "Extra Strap - Male / S/M", new List<string> { "Strap II", "Zipbag" } },
             { "OXWO-ND - K - XL/V", new List<string> { "Bra XL", "Band V", "Sensor", "Phone stand", "Magnetbox", "Start guide" } }, // Night & Day Bundle - Bra
             { "OXWO-ND - K - XL/IV", new List<string> { "Bra XL", "Band IV", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },
             { "OXWO-ND - K (Strap) - XL/III", new List<string> { "Bra XL", "Strap III", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },
@@ -97,7 +97,7 @@ namespace SOPManagement.Services.ShopifyService.Helpers
             { "OXA-PP- K (BUNDLE)", new List<string> { "Strap I", "Strap II", "Strap III", "Strap IV", "Sensor", "Sensor", "Phone stand", "Magnetbox", "Start guide" } },
             { "OXPA-0601-0606", new List<string> { "Magnetbox"} }, // Others
             { "OXAC-0401-0404", new List<string> { "Phone stand"} },
-            { "OXAC-0501-0505", new List<string> { "Zip bag"} },
+            { "OXAC-0501-0505", new List<string> { "Zipbag"} },
             { "OXAC-0801-0906", new List<string> { "Start guide"} },
             { "OXAC-0901-1006", new List<string> { "Safety info"} },
         };
