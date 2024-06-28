@@ -104,6 +104,11 @@ namespace SOPManagement.Services.ShopifyService.Helpers
 
         public static string MapItems(string input)
         {
+            if (input == null)
+            {
+                return "None";
+            }
+
             if (mappings.TryGetValue(input, out List<string> result))
             {
                 string lineItemNameCommaSeparated = string.Join(", ", result);
