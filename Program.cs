@@ -30,8 +30,8 @@ namespace SOPManagement
             var googleService = new GoogleService(credentialPath);
 
             #region
-            DateTime startDatetime = new DateTime(2024, 03, 01);
-            DateTime endDatetime = new DateTime(2024, 02, 01);
+            DateTime startDatetime = new DateTime(2024, 07, 01);
+            DateTime endDatetime = new DateTime(2024, 06, 01);
             #endregion
 
             #region
@@ -54,8 +54,8 @@ namespace SOPManagement
                         }*/
             #endregion
 
-            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);
+            /*var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
+            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);*/
             
             string token = await QuivoService.LoginAndGetTokenAsync();
             if (!string.IsNullOrEmpty(token))

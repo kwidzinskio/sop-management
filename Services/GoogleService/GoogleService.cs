@@ -76,7 +76,7 @@ namespace SOPManagement.Services.GoogleService
                 var predefinedHeaders = new List<string>
                 {
                     "FC", "Sensor", 
-                    "Strap V", "Strap IV", "Strap III", "Strap II", "Strap I",
+                    "Strap IV", "Strap III", "Strap II", "Strap I",
                     "Bra XL", "Bra L", "Bra M", "Bra S", "Bra XS",
                     "Shirt XXL", "Shirt XL", "Shirt L", "Shirt M", "Shirt S",
                     "Band V", "Band IV", "Band III", "Band II", "Band I",

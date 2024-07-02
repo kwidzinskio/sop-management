@@ -35,6 +35,7 @@ namespace SOPManagement.Services.ShopifyService.Helpers
             { "FI", "DE" },
             { "RO", "DE" },
             { "HU", "DE" },
+            { "EE", "DE" },
         };
 
         public static string MapFulfillmentCenter(string input)
