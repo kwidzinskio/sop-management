@@ -54,15 +54,15 @@ namespace SOPManagement
                         }*/
             #endregion
 
-            /*var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);*/
-            
-            string token = await QuivoService.LoginAndGetTokenAsync();
+            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
+            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);
+
+/*            string token = await QuivoService.LoginAndGetTokenAsync();
             if (!string.IsNullOrEmpty(token))
             {
                 var productQtys = await QuivoService.GetProductQtyAsync(token);
                 await googleService.AppendQuivo(spreadsheetId, rangeQuivo, productQtys);
-            }
+            }*/
         }
 
         static (IConfiguration, string) ConfigureSettings()
