@@ -68,8 +68,8 @@ namespace SOPManagement
         static (IConfiguration, string) ConfigureSettings()
         {
             string basePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string configPath = Path.Combine(basePath, ".NET", "SOPManagement", "config.json");
-            string credentialPath = Path.Combine(basePath, ".NET", "SOPManagement", "google_api_key.json");
+            string configPath = Path.Combine(basePath, ".NET", "sop-management", "config.json");
+            string credentialPath = Path.Combine(basePath, ".NET", "sop-management", "google_api_key.json");
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
