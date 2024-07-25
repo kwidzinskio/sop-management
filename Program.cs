@@ -30,8 +30,8 @@ namespace SOPManagement
             var googleService = new GoogleService(credentialPath);
 
             #region
-            DateTime startDatetime = new DateTime(2024, 07, 01);
-            DateTime endDatetime = new DateTime(2024, 06, 01);
+            DateTime startDatetime = new DateTime(2024, 08, 04);
+            DateTime endDatetime = new DateTime(2024, 07, 01);
             #endregion
 
             #region
@@ -68,8 +68,8 @@ namespace SOPManagement
         static (IConfiguration, string) ConfigureSettings()
         {
             string basePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string configPath = Path.Combine(basePath, ".NET", "sop-management", "config.json");
-            string credentialPath = Path.Combine(basePath, ".NET", "sop-management", "google_api_key.json");
+            string configPath = Path.Combine(basePath, "sop-management", "config.json");
+            string credentialPath = Path.Combine(basePath, "sop-management", "google_api_key.json");
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

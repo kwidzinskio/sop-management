@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "l3i6JDTKoCk=",
+  "dgSpecHash": "QWikF+KzcMY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\.NET\\sop-management\\SOPManagement.csproj",
+  "projectFilePath": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\sop-management\\SOPManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kwidzinski_nanoleq\\.nuget\\packages\\google.apis\\1.68.0\\google.apis.1.68.0.nupkg.sha512",
     "C:\\Users\\kwidzinski_nanoleq\\.nuget\\packages\\google.apis.auth\\1.68.0\\google.apis.auth.1.68.0.nupkg.sha512",

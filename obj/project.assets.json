@@ -1102,11 +1102,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\.NET\\sop-management\\SOPManagement.csproj",
+      "projectUniqueName": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\sop-management\\SOPManagement.csproj",
       "projectName": "SOPManagement",
-      "projectPath": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\.NET\\sop-management\\SOPManagement.csproj",
+      "projectPath": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\sop-management\\SOPManagement.csproj",
       "packagesPath": "C:\\Users\\kwidzinski_nanoleq\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\.NET\\sop-management\\obj\\",
+      "outputPath": "C:\\Users\\kwidzinski_nanoleq\\Desktop\\sop-management\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kwidzinski_nanoleq\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1178,7 +1178,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
