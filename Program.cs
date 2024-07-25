@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using SOPManagement.Services.QuivoService;
 
 namespace SOPManagement
 {
@@ -54,15 +53,10 @@ namespace SOPManagement
                         }*/
             #endregion
 
-            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);
+/*            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
+            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);*/
 
-/*            string token = await QuivoService.LoginAndGetTokenAsync();
-            if (!string.IsNullOrEmpty(token))
-            {
-                var productQtys = await QuivoService.GetProductQtyAsync(token);
-                await googleService.AppendQuivo(spreadsheetId, rangeQuivo, productQtys);
-            }*/
+            var stockLevels = await shopifyService.FetchStocksAsync();
         }
 
         static (IConfiguration, string) ConfigureSettings()

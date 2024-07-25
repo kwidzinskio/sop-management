@@ -11,16 +11,22 @@ namespace SOPManagement.Services.ShopifyService
 {
     internal class ShopifyService
     {
-        private readonly OrderService _orderService;
-        private OrderListFilter _filter;
         private string _accessToken;
         private string _shopifyUrl;
+        private readonly OrderService _orderService;
+        private OrderListFilter _filter;
+        private readonly InventoryLevelService _inventoryLevelService;
+        private readonly LocationService _locationService;
+        private readonly InventoryItemService _inventoryItemService;
 
         public ShopifyService(IConfiguration configuration)
         {
             _accessToken = configuration["shopifyAccessToken"];
             _shopifyUrl = configuration["shopifyUrl"];
             _orderService = new OrderService(_shopifyUrl, _accessToken);
+            _inventoryLevelService = new InventoryLevelService(_shopifyUrl, _accessToken);
+            _locationService = new LocationService(_shopifyUrl, _accessToken);
+            _inventoryItemService = new InventoryItemService(_shopifyUrl, _accessToken);
         }
 
         public async Task<List<List<object>>> FetchOrdersAsync(DateTime startDatetime, DateTime endDatetime)
@@ -92,6 +98,46 @@ namespace SOPManagement.Services.ShopifyService
             filter.CreatedAtMax = startDatetime.AddSeconds(-1);
 
             return startDatetime;
+        }
+
+        public async Task<List<List<object>>> FetchStocksAsync()
+        {
+            var locations = await _locationService.ListAsync();
+            var locationDict = locations.Items.ToDictionary(loc => loc.Id.Value, loc => loc.Name);
+
+            var inventoryLevels = new List<List<object>>();
+
+            foreach (var location in locations.Items)
+            {
+                var inventoryList = await _inventoryLevelService.ListAsync(new InventoryLevelListFilter
+                {
+                    LocationIds = new List<long> { location.Id.Value }
+                });
+
+                foreach (var inventoryLevel in inventoryList.Items)
+                {
+                    var inventoryItem = await _inventoryItemService.GetAsync(inventoryLevel.InventoryItemId.Value);
+                    await Task.Delay(250);
+                    var inventoryDetails = new List<object>
+                    {
+                        inventoryLevel.Available,
+                        locationDict[inventoryLevel.LocationId.Value],
+                        inventoryItem.SKU
+                    };
+                    inventoryLevels.Add(inventoryDetails);
+                    Console.WriteLine($"{locationDict[inventoryLevel.LocationId.Value]} {inventoryLevel.Available} {inventoryItem.SKU}");
+                }
+            }
+
+            return inventoryLevels;
+        }
+
+
+        public class InventoryLevelWithDetails
+        {
+            public long? InventoryLevel { get; set; }
+            public string LocationName { get; set; }
+            public string SKU { get; set; }
         }
     }
 }
