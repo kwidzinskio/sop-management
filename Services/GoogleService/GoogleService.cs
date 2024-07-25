@@ -65,7 +65,7 @@ namespace SOPManagement.Services.GoogleService
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
-        public async Task AppendQuivo(string spreadsheetId, string range, Dictionary<string, List<GoogleProductQty>> productsByWarehouse)
+        public async Task AppendQuivo(string spreadsheetId, string range, Dictionary<string, Dictionary<string, int>> productsByWarehouse)
         {
             try
             {
@@ -74,14 +74,14 @@ namespace SOPManagement.Services.GoogleService
                 var values = new List<IList<object>>();
 
                 var predefinedHeaders = new List<string>
-                {
-                    "FC", "Sensor", 
-                    "Strap IV", "Strap III", "Strap II", "Strap I",
-                    "Bra XL", "Bra L", "Bra M", "Bra S", "Bra XS",
-                    "Shirt XXL", "Shirt XL", "Shirt L", "Shirt M", "Shirt S",
-                    "Band V", "Band IV", "Band III", "Band II", "Band I",
-                    "Magnetbox", "Phone stand", "Zip bag", "Start guide", "Safety info"
-                };
+        {
+            "FC", "Sensor",
+            "Strap IV", "Strap III", "Strap II", "Strap I",
+            "Bra XL", "Bra L", "Bra M", "Bra S", "Bra XS",
+            "Shirt XXL", "Shirt XL", "Shirt L", "Shirt M", "Shirt S",
+            "Band V", "Band IV", "Band III", "Band II", "Band I",
+            "Magnetbox", "Phone stand", "Zip bag", "Start guide", "Safety info"
+        };
 
                 var headers = predefinedHeaders.Cast<object>().ToList();
                 values.Add(headers);
@@ -92,8 +92,14 @@ namespace SOPManagement.Services.GoogleService
 
                     foreach (var header in predefinedHeaders.Skip(1)) // Skip first header "FC"
                     {
-                        var product = warehouseEntry.Value.FirstOrDefault(p => p.InternalName == header);
-                        row.Add(product != null ? (object)product.Quantity : 0);
+                        if (warehouseEntry.Value.TryGetValue(header, out int quantity))
+                        {
+                            row.Add(quantity);
+                        }
+                        else
+                        {
+                            row.Add(0);
+                        }
                     }
 
                     values.Add(row);

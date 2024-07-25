@@ -99,16 +99,16 @@ namespace SOPManagement.Services.ShopifyService
 
             return startDatetime;
         }
-
-        public async Task<List<List<object>>> FetchStocksAsync()
+        public async Task<Dictionary<string, Dictionary<string, int>>> FetchStocksAsync()
         {
             var locations = await _locationService.ListAsync();
             var locationDict = locations.Items.ToDictionary(loc => loc.Id.Value, loc => loc.Name);
 
-            var inventoryLevels = new List<List<object>>();
+            var inventoryLevels = new Dictionary<string, Dictionary<string, int>>();
 
             foreach (var location in locations.Items)
             {
+                Console.WriteLine($"-- {location.Name} ---");
                 var inventoryList = await _inventoryLevelService.ListAsync(new InventoryLevelListFilter
                 {
                     LocationIds = new List<long> { location.Id.Value }
@@ -118,26 +118,39 @@ namespace SOPManagement.Services.ShopifyService
                 {
                     var inventoryItem = await _inventoryItemService.GetAsync(inventoryLevel.InventoryItemId.Value);
                     await Task.Delay(250);
-                    var inventoryDetails = new List<object>
+
+                    if (inventoryLevel.LocationId.HasValue && inventoryItem != null)
                     {
-                        inventoryLevel.Available,
-                        locationDict[inventoryLevel.LocationId.Value],
-                        inventoryItem.SKU
-                    };
-                    inventoryLevels.Add(inventoryDetails);
-                    Console.WriteLine($"{locationDict[inventoryLevel.LocationId.Value]} {inventoryLevel.Available} {inventoryItem.SKU}");
+                        var locationName = locationDict.GetValueOrDefault(inventoryLevel.LocationId.Value);
+                        var internalName = ShopifyInventoryItemsMapping.MapItems(inventoryItem.SKU);
+                        var available = (int)(inventoryLevel.Available ?? 0); 
+
+                        if (!string.IsNullOrEmpty(locationName) && !string.IsNullOrEmpty(internalName))
+                        {
+                            if (!inventoryLevels.ContainsKey(locationName))
+                            {
+                                inventoryLevels[locationName] = new Dictionary<string, int>();
+                            }
+
+                            if (internalName != "None")
+                            {
+                                inventoryLevels[locationName][internalName] = available;
+                            }
+                            Console.WriteLine($"{internalName} {inventoryItem.SKU} {available}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Location name or SKU is null or empty.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("InventoryLevel.LocationId or InventoryItem is null.");
+                    }
                 }
             }
 
             return inventoryLevels;
-        }
-
-
-        public class InventoryLevelWithDetails
-        {
-            public long? InventoryLevel { get; set; }
-            public string LocationName { get; set; }
-            public string SKU { get; set; }
         }
     }
 }

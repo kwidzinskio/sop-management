@@ -29,7 +29,7 @@ namespace SOPManagement
             var googleService = new GoogleService(credentialPath);
 
             #region
-            DateTime startDatetime = new DateTime(2024, 08, 04);
+            DateTime startDatetime = new DateTime(2024, 07, 04);
             DateTime endDatetime = new DateTime(2024, 07, 01);
             #endregion
 
@@ -57,6 +57,7 @@ namespace SOPManagement
             await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);*/
 
             var stockLevels = await shopifyService.FetchStocksAsync();
+            await googleService.AppendQuivo(spreadsheetId, rangeQuivo, stockLevels);
         }
 
         static (IConfiguration, string) ConfigureSettings()
