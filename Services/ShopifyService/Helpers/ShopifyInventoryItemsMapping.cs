@@ -26,13 +26,10 @@ namespace SOPManagement.Services.ShopifyService.Helpers
             { "OXME-0301-0301 L", "Shirt L" },
             { "OXME-0301-0301 M", "Shirt M" },
             { "OXME-0301-0301 S", "Shirt S" },
-            { "OXUN-1001-1107 m: 2XL/3XL, f: 3XL/4XL", "Strap V" }, // Extra Strap - Female / Male
-            { "OXUN-1001-1107 m: 2XL/3XL, f: XL/2XL", "Strap IV" },
+            { "OXUN-1001-1107 m: 2XL/3XL; f: 3XL/4XL", "Strap IV" }, // Extra Strap - Female / Male
             { "OXUN-1001-1107 m: L/XL, f: XL/2XL", "Strap III" },
             { "OXUN-1001-1107 m: S/M, f: M/L", "Strap II" },
             { "OXUN-1001-1107 m: XS, f: XS/S", "Strap I" },
-            { "OXA-IP- K (BUNDLE)", "Strap I" }, // Instructor Package - Bundle
-            { "OXA-PP- K (BUNDLE)", "Strap I" },
             { "OXPA-0601-0606", "Magnetbox" }, // Others
             { "OXAC-0401-0404", "Phone stand" },
             { "OXAC-0501-0505", "Zipbag" },

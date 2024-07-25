@@ -109,6 +109,7 @@ namespace SOPManagement.Services.ShopifyService
             foreach (var location in locations.Items)
             {
                 Console.WriteLine($"-- {location.Name} ---");
+
                 var inventoryList = await _inventoryLevelService.ListAsync(new InventoryLevelListFilter
                 {
                     LocationIds = new List<long> { location.Id.Value }
@@ -116,37 +117,27 @@ namespace SOPManagement.Services.ShopifyService
 
                 foreach (var inventoryLevel in inventoryList.Items)
                 {
+                    if (!inventoryLevel.LocationId.HasValue) continue;
+
                     var inventoryItem = await _inventoryItemService.GetAsync(inventoryLevel.InventoryItemId.Value);
+                    if (inventoryItem == null) continue;
+
                     await Task.Delay(250);
 
-                    if (inventoryLevel.LocationId.HasValue && inventoryItem != null)
-                    {
-                        var locationName = locationDict.GetValueOrDefault(inventoryLevel.LocationId.Value);
-                        var internalName = ShopifyInventoryItemsMapping.MapItems(inventoryItem.SKU);
-                        var available = (int)(inventoryLevel.Available ?? 0); 
+                    var locationName = locationDict[inventoryLevel.LocationId.Value];
+                    var internalName = ShopifyInventoryItemsMapping.MapItems(inventoryItem.SKU);
+                    var available = (int)(inventoryLevel.Available ?? 0);
 
-                        if (!string.IsNullOrEmpty(locationName) && !string.IsNullOrEmpty(internalName))
-                        {
-                            if (!inventoryLevels.ContainsKey(locationName))
-                            {
-                                inventoryLevels[locationName] = new Dictionary<string, int>();
-                            }
+                    if (string.IsNullOrEmpty(locationName) || string.IsNullOrEmpty(internalName) || internalName == "None") continue;
 
-                            if (internalName != "None")
-                            {
-                                inventoryLevels[locationName][internalName] = available;
-                            }
-                            Console.WriteLine($"{internalName} {inventoryItem.SKU} {available}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Location name or SKU is null or empty.");
-                        }
-                    }
-                    else
+                    if (!inventoryLevels.ContainsKey(locationName))
                     {
-                        Console.WriteLine("InventoryLevel.LocationId or InventoryItem is null.");
+                        inventoryLevels[locationName] = new Dictionary<string, int>();
                     }
+
+                    inventoryLevels[locationName][internalName] = available;
+
+                    Console.WriteLine($"{internalName} {inventoryItem.SKU} {available}");
                 }
             }
 
