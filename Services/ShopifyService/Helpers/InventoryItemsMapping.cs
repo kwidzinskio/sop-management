@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOPManagement.Services.ShopifyService.Helpers
 {
-    internal class ShopifyInventoryItemsMapping
+    internal class InventoryItemsMapping
     {
         private static readonly Dictionary<string, string> mappings = new Dictionary<string, string>
         {
@@ -32,9 +32,8 @@ namespace SOPManagement.Services.ShopifyService.Helpers
             { "OXUN-1001-1107 m: XS, f: XS/S", "Strap I" },
             { "OXPA-0601-0606", "Magnetbox" }, // Others
             { "OXAC-0401-0404", "Phone stand" },
-            { "OXAC-0501-0505", "Zipbag" },
+            { "OXAC-0501-0505", "Zip bag" },
             { "OXAC-0801-0906", "Start guide" },
-            { "OXAC-0901-1006", "Safety info" }
         };
 
         public static string MapItems(string input)

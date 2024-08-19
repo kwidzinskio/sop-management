@@ -72,7 +72,7 @@ namespace SOPManagement.Services.ShopifyService
         {
             var lineSKUs = order.LineItems.SelectMany(li => Enumerable.Repeat(li.SKU, li.Quantity ?? 0)).ToList();
             var lineNames = order.LineItems.SelectMany(li => Enumerable.Repeat(li.Name, li.Quantity ?? 0)).ToList();
-            var lineInternalNames = order.LineItems.SelectMany(li => Enumerable.Repeat(ShopifyItemsMapping.MapItems(li.SKU), li.Quantity ?? 0)).ToList();
+            var lineInternalNames = order.LineItems.SelectMany(li => Enumerable.Repeat(OrdersItemsMapping.MapItems(li.SKU), li.Quantity ?? 0)).ToList();
             int productsInOrder = order.LineItems.Sum(li => li.Quantity ?? 0);
 
             var lineOrder = new List<object>
@@ -112,7 +112,8 @@ namespace SOPManagement.Services.ShopifyService
 
                 var inventoryList = await _inventoryLevelService.ListAsync(new InventoryLevelListFilter
                 {
-                    LocationIds = new List<long> { location.Id.Value }
+                    LocationIds = new List<long> { location.Id.Value },
+                    Limit = 100,
                 });
 
                 foreach (var inventoryLevel in inventoryList.Items)
@@ -125,7 +126,7 @@ namespace SOPManagement.Services.ShopifyService
                     await Task.Delay(250);
 
                     var locationName = locationDict[inventoryLevel.LocationId.Value];
-                    var internalName = ShopifyInventoryItemsMapping.MapItems(inventoryItem.SKU);
+                    var internalName = InventoryItemsMapping.MapItems(inventoryItem.SKU);
                     var available = (int)(inventoryLevel.Available ?? 0);
 
                     if (string.IsNullOrEmpty(locationName) || string.IsNullOrEmpty(internalName) || internalName == "None") continue;

@@ -20,8 +20,8 @@ namespace SOPManagement
             var (configuration, credentialPath) = ConfigureSettings();
 
             string spreadsheetId = configuration["spreadsheetId"];
-            string rangeShopify = configuration["rangeShopify"];
-            string rangeQuivo = configuration["rangeQuivo"];
+            string rangeOrders = configuration["rangeOrders"];
+            string rangeStocks = configuration["rangeStocks"];
             string accessToken = configuration["accessToken"];
             string shopifyUrl = configuration["shopifyUrl"];
 
@@ -29,7 +29,7 @@ namespace SOPManagement
             var googleService = new GoogleService(credentialPath);
 
             #region
-            DateTime startDatetime = new DateTime(2024, 07, 04);
+            DateTime startDatetime = new DateTime(2024, 08, 01);
             DateTime endDatetime = new DateTime(2024, 07, 01);
             #endregion
 
@@ -53,11 +53,11 @@ namespace SOPManagement
                         }*/
             #endregion
 
-/*            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
-            await googleService.AppendShopify(spreadsheetId, rangeShopify, lineOrders);*/
+            var lineOrders = await shopifyService.FetchOrdersAsync(startDatetime, endDatetime);
+            await googleService.AppendShopifyOrders(spreadsheetId, rangeOrders, lineOrders);
 
             var stockLevels = await shopifyService.FetchStocksAsync();
-            await googleService.AppendQuivo(spreadsheetId, rangeQuivo, stockLevels);
+            await googleService.AppendShopifyStocks(spreadsheetId, rangeStocks, stockLevels);
         }
 
         static (IConfiguration, string) ConfigureSettings()
